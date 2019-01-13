@@ -18,6 +18,11 @@ class WhenRewriter {
   }
 
   // private
+  buildError(node, msg) {
+    return this.scope.path.hub.buildError(node, msg);
+  }
+
+  // private
   bindConst(id, initializer) {
     this.stmts.push(constStatement(id, initializer));
   }
@@ -78,7 +83,10 @@ class WhenRewriter {
         if (
           elements.slice(0, -1).some(elt => elt.type === "MatchRestElement")
         ) {
-          throw new Error("rest-pattern before end of array pattern");
+          throw this.buildError(
+            pattern,
+            "rest-pattern before end of array pattern",
+          );
         }
         const haveRest =
           elements.length > 0 &&
@@ -122,8 +130,7 @@ class WhenRewriter {
 
       case "RegExpLiteral":
       default:
-        // TODO better error; use path.buildCodeFrameError ?
-        throw new Error("Bad expression in pattern");
+        throw this.buildError(pattern, "Bad expression in pattern");
     }
   }
 }
