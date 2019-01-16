@@ -53,32 +53,58 @@
 })();
 
 
-/* TODO broken
+let log;
 (() => {
+  log = [];
   do {
     case (42) {
       when v -> {
+        log.push("when1");
         if (v) { continue }
-        expect(true).toBe(false);
+        log.push("when2");
       }
     }
-    expect(true).toBe(false);
+    log.push("do2");
   } while (0);
+  log.push("end");
 })();
+expect(log).toEqual(["when1", "end"]);
+
+
+let s;
+(() => {
+  s = "";
+  for (const i of [1, 2, 3, 4, 5]) {
+    s += `(${i}`;
+    case (i) {
+      when 2 -> continue;
+      when 4 -> break;
+    }
+    s += `${i})`;
+  }
+  s += ".";
+})();
+expect(s).toEqual("(11)(2(33)(4."); // no 5
 
 
 (() => {
-  do {
-    case (42) {
-      when v -> {
-        break;  // TODO test distinctly from `continue`
-        expect(true).toBe(false);
-      }
+  s = "";
+  for (const i of [1, 2, 3, 4, 5, 6]) {
+    s += `(${i}`;
+    case (i) {
+      // None of these affect the outer loop...
+      when 1 -> do { continue } while (0)
+      when 2 -> for (const x of [1]) { continue; }
+      when 3 -> switch(i) { default: continue; } // ... except this.
+      when 4 -> do { break } while (0)
+      when 5 -> for (const x of [1]) { break; }
+      when 6 -> switch(i) { default: break; }
     }
-    expect(true).toBe(false);
-  } while (0);
+    s += `${i})`;
+  }
+  s += ".";
 })();
-*/
+expect(s).toEqual("(11)(22)(3(44)(55)(66).");
 
 
 case ({ x: 1 }) {
