@@ -102,6 +102,23 @@ function runTest(test, parseFunction) {
 
   if (ast.comments && !ast.comments.length) delete ast.comments;
 
+  function clean(v) {
+    for (const k in v) {
+      if (
+        ["start", "end", "loc", "leadingComments", "trailingComments"].includes(
+          k,
+        )
+      ) {
+        delete v[k];
+      } else if (Array.isArray(v[k])) {
+        v[k].forEach(clean);
+      } else if (typeof v[k] === "object") {
+        clean(v[k]);
+      }
+    }
+  }
+  clean(ast);
+
   if (!test.expect.code && !opts.throws && !process.env.CI) {
     test.expect.loc += "on";
     return save(test, ast);

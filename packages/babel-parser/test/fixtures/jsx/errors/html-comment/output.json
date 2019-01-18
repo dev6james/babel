@@ -1,31 +1,7 @@
 {
   "type": "File",
-  "start": 0,
-  "end": 5,
-  "loc": {
-    "start": {
-      "line": 1,
-      "column": 0
-    },
-    "end": {
-      "line": 1,
-      "column": 5
-    }
-  },
   "program": {
     "type": "Program",
-    "start": 0,
-    "end": 5,
-    "loc": {
-      "start": {
-        "line": 1,
-        "column": 0
-      },
-      "end": {
-        "line": 1,
-        "column": 5
-      }
-    },
     "sourceType": "script",
     "interpreter": null,
     "body": [],
@@ -33,38 +9,14 @@
     "innerComments": [
       {
         "type": "CommentLine",
-        "value": "a",
-        "start": 0,
-        "end": 5,
-        "loc": {
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 1,
-            "column": 5
-          }
-        }
+        "value": "a"
       }
     ]
   },
   "comments": [
     {
       "type": "CommentLine",
-      "value": "a",
-      "start": 0,
-      "end": 5,
-      "loc": {
-        "start": {
-          "line": 1,
-          "column": 0
-        },
-        "end": {
-          "line": 1,
-          "column": 5
-        }
-      }
+      "value": "a"
     }
   ]
 }
